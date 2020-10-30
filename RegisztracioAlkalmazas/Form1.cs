@@ -19,7 +19,6 @@ namespace RegisztracioAlkalmazas
             InitializeComponent();
         }
         
-        
         private void button_Hozzaad_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrWhiteSpace(textbox_ujHobbi.Text))
@@ -34,8 +33,6 @@ namespace RegisztracioAlkalmazas
             }
             listBoxHobbi.Items.Add(textbox_ujHobbi.Text.Trim());
             textbox_ujHobbi.Text=" ";
-
-                
         }
 
         private void buttonMentes_Click(object sender, EventArgs e)
@@ -50,17 +47,17 @@ namespace RegisztracioAlkalmazas
                     MessageBox.Show("Töltsön ki minden adatot");
                     return;
                 }
-                
                 sw.Write(textbox_Nev.Text+";");
                 sw.Write(szul_datum.Value + ";");
                 sw.Write(radioNo.Checked + ";");
                 sw.Write(rafioFerfi.Checked + ";");
+                
                 foreach (var f in listBoxHobbi.Items)
                 {
                     sw.Write(f+",");
                     
                 }
-                
+                sw.Write(";"+listBoxHobbi.SelectedIndex );
                 sw.Close();
             }
         }
@@ -72,17 +69,12 @@ namespace RegisztracioAlkalmazas
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-               
-                
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    //Get the path of specified file
                     filePath = openFileDialog.FileName;
-
-                    //Read the contents of the file into a stream
                     var fileStream = openFileDialog.OpenFile();
 
                     listBoxHobbi.Items.Clear();
@@ -102,8 +94,8 @@ namespace RegisztracioAlkalmazas
                             listBoxHobbi.Items.Add(f);
                         }
                         
-                        
-                        
+                        listBoxHobbi.SelectedIndex=Convert.ToInt32(elemek[5]);
+                        listBoxHobbi.Items.RemoveAt(listBoxHobbi.Items.Count - 1);
                     }
                 }
             }
