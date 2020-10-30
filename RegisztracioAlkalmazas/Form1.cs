@@ -89,7 +89,7 @@ namespace RegisztracioAlkalmazas
                     
                     using (StreamReader reader = new StreamReader(fileStream))
                     {
-                        string[] elemek;
+                        string[] elemek; 
                         elemek = reader.ReadToEnd().Split(';');
                         textbox_Nev.Text = elemek[0];
                         szul_datum.Value = Convert.ToDateTime(elemek[1]);
